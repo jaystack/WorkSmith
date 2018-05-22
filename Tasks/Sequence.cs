@@ -8,16 +8,19 @@ namespace WorkSharp
 {
     public class Sequence : IWorkflowTask
     {
+        private Runner _runner { get; }
         private Interpolator Interpolator { get; }
         public List<IWorkflowTask> Items { get; }
         public IDictionary<string, dynamic> Definition { get; }
 
-        public Sequence(object definition, Interpolator interpolator)
+        public Sequence(Runner runner, object definition, Interpolator interpolator)
         {
+            _runner = runner;
+
             Interpolator = interpolator;
             Definition = (IDictionary<string, dynamic>)definition;
             IEnumerable<object> items = (IEnumerable<dynamic>)Definition["items"];
-            Items = items.Select(item => IOC.ConstructFromDefinition(item, interpolator)).ToList();
+            Items = items.Select(item => _runner.ConstructFromDefinition(item, interpolator)).ToList();
 
         }
 

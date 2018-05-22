@@ -7,16 +7,18 @@ namespace WorkSharp
 {
     public class ConsoleWrite : IWorkflowTask
     {
+        
         public IDictionary<string, dynamic> Definition { get; }
-        private Interpolator Interpolator { get; }
+        public Interpolator Interpolator { get; }
+
         public string MessageExpression { get; }
 
         public ConsoleWrite(object definition, Interpolator interpolator)
         {
             Interpolator = interpolator;
             Definition = (IDictionary<string, dynamic>)definition;
-            MessageExpression = Definition["message"];
 
+            MessageExpression = Definition["message"];
         }
 
         public async Task<object> Invoke(object context)
@@ -28,4 +30,5 @@ namespace WorkSharp
         }
 
     }
+
 }
