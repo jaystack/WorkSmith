@@ -7,24 +7,28 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorkSharp
+namespace WorkSharp.Tasks
 {
     public class HttpGet : IWorkflowTask
     {
 
-        public IDictionary<string, dynamic> Definition { get; }
-        private Interpolator Interpolator { get; }
-        public string UrlExpression { get; }
-        public string IsJSONExpression { get; }
+        public IDictionary<string, dynamic> Definition { get; private set; }
+        private Interpolator Interpolator { get; set; }
+        public string UrlExpression { get; private set; }
+        public string IsJSONExpression { get; private set; }
 
-        public HttpGet(object definition, Interpolator interpolator)
+        public HttpGet(Interpolator interpolator)
         {
             Interpolator = interpolator;
+        }
+
+
+        public void InitializeFromJson(object definition)
+        {
             Definition = (IDictionary<string, dynamic>)definition;
             UrlExpression = Definition["url"];
             IsJSONExpression = Definition.ContainsKey("isJSON") ? Definition["isJSON"] : "true";
         }
-
 
         public async Task<object> Invoke(object context)
         {

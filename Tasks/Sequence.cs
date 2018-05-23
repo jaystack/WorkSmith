@@ -4,21 +4,25 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WorkSharp
+namespace WorkSharp.Tasks
 {
     public class Sequence : IWorkflowTask
     {
-        private Interpolator Interpolator { get; }
-        public List<IWorkflowTask> Items { get; }
-        public IDictionary<string, dynamic> Definition { get; }
-
-        public Sequence(object definition, Interpolator interpolator)
+        private Interpolator Interpolator { get; set; }
+        public List<IWorkflowTask> Items { get; private set; }
+        public IDictionary<string, dynamic> Definition { get; private set; }
+        public WorkSharp WorkSharp { get; set; }
+        public Sequence(Interpolator interpolator, WorkSharp workSharp)
         {
             Interpolator = interpolator;
+            WorkSharp = workSharp;
+        }
+
+        public void InitializeFromJson(object definition)
+        {
             Definition = (IDictionary<string, dynamic>)definition;
             IEnumerable<object> items = (IEnumerable<dynamic>)Definition["items"];
-            Items = items.Select(item => IOC.ConstructFromDefinition(item, interpolator)).ToList();
-
+            Items = items.Select(item => WorkSharp.CreateFromJSON(item)).ToList();
         }
 
         public async Task<object> Invoke(object context)

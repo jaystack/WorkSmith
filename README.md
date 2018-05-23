@@ -33,3 +33,12 @@ This is done by creating the building blocks in C# and defining the workflow in 
 }
 ```
 
+### How to use
+
+```C#
+	var jsonText = File.ReadAllText(Directory.GetCurrentDirectory() + "\\wf.json");
+	ExpandoObject json = JsonConvert.DeserializeObject<ExpandoObject>(jsonText);
+	var ws = new WorkSharp.WorkSharp();
+	var wf = ws.CreateFromJSON(json);
+	var r = await wf.Invoke(((dynamic)new ExpandoObject()));
+```

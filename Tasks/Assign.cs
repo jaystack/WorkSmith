@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorkSharp
+namespace WorkSharp.Tasks
 {
     public class Assign : IWorkflowTask
     {
 
-        public IDictionary<string, dynamic> Definition { get; }
-        private Interpolator Interpolator { get; }
-        public string Name { get; }
-        public string Expression { get; }
+        public IDictionary<string, dynamic> Definition { get; private set; }
+        private Interpolator Interpolator { get; set; }
+        public string Name { get; private set; }
+        public string Expression { get; private set; }
 
-        public Assign(object definition, Interpolator interpolator)
+        public Assign(Interpolator interpolator)
         {
             Interpolator = interpolator;
+        }
+
+
+        public void InitializeFromJson(object definition)
+        {
             Definition = (IDictionary<string, dynamic>)definition;
             Name = Definition["name"];
             Expression = Definition["expression"];
         }
-
 
         public async Task<object> Invoke(object context)
         {

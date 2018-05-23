@@ -8,6 +8,8 @@ namespace WorkSharp
         IDictionary<string, dynamic> Definition { get; }
 
         Task<object> Invoke(object context);
+
+        void InitializeFromJson(object definition);
     }
 
 }
