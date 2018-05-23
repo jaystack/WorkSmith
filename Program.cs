@@ -18,14 +18,6 @@ namespace WorkSharp
             var application = serviceProvider.GetService<App>();
             application.RunAppAsync().Wait();
 
-            // wait
-            do
-            {
-                while (!Console.KeyAvailable)
-                {
-                    // Do something
-                }
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
 
         }
 

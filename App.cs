@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -22,8 +23,7 @@ namespace WorkSharp
 
             // read config
             var configText = System.IO.File.ReadAllText("sample-wf.json");
-            object o = JToken.Parse(configText).ToObject<object>();
-
+            object o = JsonConvert.DeserializeObject<ExpandoObject>(configText);
             // run config
             var intance = _workSharp.CreateFromJSON(o);
             var itemResult = await intance.Invoke(new ExpandoObject());

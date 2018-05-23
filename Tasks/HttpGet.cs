@@ -26,7 +26,7 @@ namespace WorkSharp.Tasks
 
         public void InitializeFromJson(object definition)
         {
-            Definition = (definition as JObject).ToObject<IDictionary<string, dynamic>>();
+            Definition = (IDictionary<string, dynamic>)definition;
             UrlExpression = Definition["url"];
             IsJSONExpression = Definition.ContainsKey("isJSON") ? Definition["isJSON"] : "true";
         }

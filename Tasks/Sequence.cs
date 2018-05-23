@@ -21,7 +21,7 @@ namespace WorkSharp.Tasks
 
         public void InitializeFromJson(object definition)
         {
-            Definition = (definition as JObject).ToObject<IDictionary<string, dynamic>>();
+            Definition = (IDictionary<string, dynamic>)definition;
 
             IEnumerable<object> items = (IEnumerable<dynamic>)Definition["items"];
             Items = items.Select(item => WorkSharp.CreateFromJSON(item)).ToList();

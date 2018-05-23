@@ -22,7 +22,7 @@ namespace WorkSharp.Tasks
 
         public void InitializeFromJson(object definition)
         {
-            Definition = (definition as JObject).ToObject<IDictionary<string, dynamic>>();
+            Definition = (IDictionary<string, dynamic>)definition;
             Name = Definition["name"];
             Expression = Definition["expression"];
         }
