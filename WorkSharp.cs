@@ -16,7 +16,6 @@ namespace WorkSharp
         public WorkSharp()
         {
 
-            Services.AddSingleton<App>();
             Services.AddSingleton(new Interpolator());
             Services.AddSingleton(this);
 
