@@ -3,31 +3,31 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace WorkSharp
 {
     class App
     {
-
-        public Runner _runner { get; }
-        public Interpolator _interpolator { get; }
-        public App(Runner runner, Interpolator interpolator)
+        public WorkSharp _workSharp;
+        public Interpolator _interpolator;
+        public App(WorkSharp workSharp, Interpolator interpolator)
         {
-            _runner = runner;
+            _workSharp = workSharp;
             _interpolator = interpolator;
-            RunApp();
         }
 
-        private void RunApp()
+        public async Task RunAppAsync()
         {
 
             // read config
             var configText = System.IO.File.ReadAllText("sample-wf.json");
             object o = JToken.Parse(configText).ToObject<object>();
 
-            _runner.ConstructFromDefinition(o, _interpolator);
+            // run config
+            var intance = _workSharp.CreateFromJSON(o);
+            var itemResult = await intance.Invoke(new ExpandoObject());
 
-        // run config
         }
 
 

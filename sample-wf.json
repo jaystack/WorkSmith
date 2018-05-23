@@ -10,7 +10,7 @@
     {
       "_type": "Assign",
       "name": "Scope.SelectedContent",
-      "expression": "Scope.ContentList[0]"
+      "expression": "Scope.ContentList[3]"
     },
     {
       "_type": "Delay",

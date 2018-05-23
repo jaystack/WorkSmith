@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace WorkSharp.Tasks
 {
@@ -20,7 +21,8 @@ namespace WorkSharp.Tasks
 
         public void InitializeFromJson(object definition)
         {
-            Definition = (IDictionary<string, dynamic>)definition;
+            Definition = (definition as JObject).ToObject<IDictionary<string, dynamic>>();
+
             IEnumerable<object> items = (IEnumerable<dynamic>)Definition["items"];
             Items = items.Select(item => WorkSharp.CreateFromJSON(item)).ToList();
         }

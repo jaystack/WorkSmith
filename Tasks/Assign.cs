@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace WorkSharp.Tasks
 
         public void InitializeFromJson(object definition)
         {
-            Definition = (IDictionary<string, dynamic>)definition;
+            Definition = (definition as JObject).ToObject<IDictionary<string, dynamic>>();
             Name = Definition["name"];
             Expression = Definition["expression"];
         }

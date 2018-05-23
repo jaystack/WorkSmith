@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace WorkSharp.Tasks
 {
@@ -25,7 +26,7 @@ namespace WorkSharp.Tasks
 
         public void InitializeFromJson(object definition)
         {
-            Definition = (IDictionary<string, dynamic>)definition;
+            Definition = (definition as JObject).ToObject<IDictionary<string, dynamic>>();
             UrlExpression = Definition["url"];
             IsJSONExpression = Definition.ContainsKey("isJSON") ? Definition["isJSON"] : "true";
         }

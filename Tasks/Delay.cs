@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace WorkSharp.Tasks
 {
@@ -21,7 +22,7 @@ namespace WorkSharp.Tasks
 
         public void InitializeFromJson(object definition)
         {
-            Definition = (IDictionary<string, dynamic>)definition;
+            Definition = (definition as JObject).ToObject<IDictionary<string, dynamic>>();
             DurationExpression = ((object)Definition["duration"]).ToString();
         }
 

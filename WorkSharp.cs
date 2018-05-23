@@ -15,8 +15,11 @@ namespace WorkSharp
         public IServiceProvider Provider { get; set; }
         public WorkSharp()
         {
+
+            Services.AddSingleton<App>();
             Services.AddSingleton(new Interpolator());
             Services.AddSingleton(this);
+
             RegisterTaskType<Tasks.ConsoleWrite>();
             RegisterTaskType<Tasks.Assign>();
             RegisterTaskType<Tasks.Delay>();
